@@ -1,0 +1,85 @@
+site_name: Liga de Sistemas Embarcados — Firmware
+site_description: Documentação de firmware da liga
+# site_url: https://SEU-USUARIO.github.io/NOME-DO-REPO/
+# repo_url: https://github.com/SEU-USUARIO/NOME-DO-REPO
+
+theme:
+  name: material
+  language: pt-BR
+  logo: assets/logos/logo_laser.png        # Logo no cabeçalho/barra superior
+  favicon: assets/logos/favicon_laser.png  # Ícone da aba do navegador
+  palette:
+    # Palette toggle para light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Alternar para modo escuro
+
+    # Palette toggle para dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Alternar para modo claro
+
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - search.suggest
+    - navigation.path
+
+markdown_extensions:
+  - admonition                    # Habilita o !!! tip
+  - pymdownx.details              # Suporte a avisos retráteis/avançados
+  - pymdownx.superfences 
+  - tables
+  - attr_list         # Habilita blocos de código com títulos
+  - pymdownx.highlight:           # Destaque de sintaxe
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - Início: index.md
+  - Guias:
+      - guias/index.md
+      - Git e versionamento: guias/git.md
+      - Como documentar: guias/como_documentar.md
+      #- Padrões de Código:
+  - Firmware:
+      - firmware/index.md
+      - Ambiente e ferramentas: firmware/ambiente.md
+      - Plataformas:
+        - firmware/plataformas/index.md
+        - ESP32: firmware/plataformas/esp32.md
+      - Comunicacao:
+        - firmware/comunicacao/index.md
+        - Can Bus:  firmware/comunicacao/can_bus.md
+        - ESP-NOW: firmware/comunicacao/esp_now.md
+      #- Periféricos:
+      #- RTOS e escalonamento:
+      #- Debug e testes:
+  - Robocar:
+      - robocar/index.md
+      - Pinagem: robocar/pinagem.md
+  - Referências:
+      - referencias/index.md
+  
+     
