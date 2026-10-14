@@ -1,0 +1,1642 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação de firmware da liga">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../esp_now/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/logos/favicon_laser.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Can Bus - Liga de Sistemas Embarcados — Firmware</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#protocolo-can-bus" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../../.." title="Liga de Sistemas Embarcados — Firmware" class="md-header__button md-logo" aria-label="Liga de Sistemas Embarcados — Firmware" data-md-component="logo">
+      
+  <img src="../../../assets/logos/logo_laser.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Liga de Sistemas Embarcados — Firmware
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Can Bus
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Alternar para modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Alternar para modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Alternar para modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Alternar para modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Início
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../guias/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guias
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Firmware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../robocar/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Robocar
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../referencias/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Referências
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Liga de Sistemas Embarcados — Firmware" class="md-nav__button md-logo" aria-label="Liga de Sistemas Embarcados — Firmware" data-md-component="logo">
+      
+  <img src="../../../assets/logos/logo_laser.png" alt="logo">
+
+    </a>
+    Liga de Sistemas Embarcados — Firmware
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../guias/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guias
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guias
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guias/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git e versionamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guias/como_documentar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como documentar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Firmware
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ambiente e ferramentas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../plataformas/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plataformas
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Plataformas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plataformas/esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESP32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comunicacao
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Comunicacao
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Can Bus
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Can Bus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-geral-e-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Geral e Histórico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-meio-fisico-e-niveis-de-tensao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Meio Físico e Níveis de Tensão
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-estrutura-do-frame-can" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Estrutura do Frame CAN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-normas-de-barramento-e-velocidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normas de Barramento e Velocidade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-divisao-de-um-dispositivo-e-do-barramento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Divisão de um Dispositivo e do Barramento
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Divisão de um Dispositivo e do Barramento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capacidade-de-enderecamento-e-nos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacidade de Endereçamento e Nós
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-arbitragem-e-acesso-ao-meio-csmacr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Arbitragem e Acesso ao Meio (CSMA/CR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Arbitragem e Acesso ao Meio (CSMA/CR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona-o-processo-de-arbitragem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como funciona o processo de arbitragem:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirmacao-de-integridade-e-liberacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirmação de Integridade e Liberação:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../esp_now/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESP-NOW
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../robocar/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Robocar
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Robocar
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robocar/pinagem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pinagem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../referencias/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referências
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Referências
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-geral-e-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Geral e Histórico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-meio-fisico-e-niveis-de-tensao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Meio Físico e Níveis de Tensão
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-estrutura-do-frame-can" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Estrutura do Frame CAN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-normas-de-barramento-e-velocidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Normas de Barramento e Velocidade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-divisao-de-um-dispositivo-e-do-barramento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Divisão de um Dispositivo e do Barramento
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Divisão de um Dispositivo e do Barramento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capacidade-de-enderecamento-e-nos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacidade de Endereçamento e Nós
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-arbitragem-e-acesso-ao-meio-csmacr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Arbitragem e Acesso ao Meio (CSMA/CR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Arbitragem e Acesso ao Meio (CSMA/CR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona-o-processo-de-arbitragem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como funciona o processo de arbitragem:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirmacao-de-integridade-e-liberacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirmação de Integridade e Liberação:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navegação" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Início
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Firmware
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Comunicacao
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="protocolo-can-bus">Protocolo CAN Bus<a class="headerlink" href="#protocolo-can-bus" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Guia e Padrões de Comunicação via Barramento CAN<br />
+Liga Acadêmica de Sistemas Embarcados — CIn/UFPE</p>
+</blockquote>
+<hr />
+<div class="admonition tip">
+<p class="admonition-title">Dica do Pipeline 🐾</p>
+<p>Como o CAN é uma rede relativamente simples em componentes, cerca de 90% dos problemas na bancada são causados por curtos-circuitos nos fios do barramento ou falhas nos chips transceptores dos dispositivos. Sempre verifique o meio físico primeiro!</p>
+</div>
+<hr />
+<h2 id="1-visao-geral-e-historico">1. Visão Geral e Histórico<a class="headerlink" href="#1-visao-geral-e-historico" title="Permanent link">&para;</a></h2>
+<p>O <strong>CAN</strong> (<em>Controller Area Network</em> — Rede de Controle em Área) foi desenvolvido por Robert Bosch em 1980 com foco na comunicação entre módulos eletrônicos automotivos. Seu objetivo principal foi substituir os sistemas de fiação ponto a ponto, reduzindo o peso do chicote elétrico e aumentando a segurança contra falhas do sistema.</p>
+<p>Trata-se de uma comunicação serial na qual os dados são enviados bit a bit em sequência, permitindo a conexão de múltiplos dispositivos em um único barramento sem uma relação mestre-escravo: todos os nós conectados podem enviar e receber dados.</p>
+<hr />
+<h2 id="2-meio-fisico-e-niveis-de-tensao">2. Meio Físico e Níveis de Tensão<a class="headerlink" href="#2-meio-fisico-e-niveis-de-tensao" title="Permanent link">&para;</a></h2>
+<p>A comunicação utiliza dois fios chamados <strong>CANH</strong> (CAN High) e <strong>CANL</strong> (CAN Low). A interpretação dos bits é feita por <strong>tensão diferencial</strong> (diferença entre CANH e CANL) para garantir imunidade a ruídos elétricos:</p>
+<ul>
+<li><strong>Bit Recessivo (1):</strong> CANH - CANL &gt; 0.9V</li>
+<li><strong>Bit Dominante (0):</strong> CANH - CANL &lt; 0.5V</li>
+</ul>
+<blockquote>
+<div class="admonition note">
+<p class="admonition-title">Nota: Comparador com Histerese - 🐱⚡</p>
+<p>Na faixa intermediária entre 0.5V e 0.9V, o valor do bit permanece inalterado em relação ao seu estado atual, mudando apenas ao cruzar esses limites.</p>
+</div>
+</blockquote>
+<hr />
+<h2 id="3-estrutura-do-frame-can">3. Estrutura do Frame CAN<a class="headerlink" href="#3-estrutura-do-frame-can" title="Permanent link">&para;</a></h2>
+<p>A transferência de dados ocorre através de quadros de mensagem (<em>frames</em>) organizados na seguinte sequência:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SOF -&gt; ID -&gt; RTR -&gt; IDE -&gt; R0 -&gt; DLC -&gt; Mensagem -&gt; CRC -&gt; ACK -&gt; EOF -&gt; IFS
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Campo</th>
+<th style="text-align: left;">Nome Extenso</th>
+<th style="text-align: left;">Descrição e Comportamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>SOF</strong></td>
+<td style="text-align: left;"><em>Start of Frame</em></td>
+<td style="text-align: left;">Marca o início da mensagem (sempre nível <code>0</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ID</strong></td>
+<td style="text-align: left;"><em>Identification</em></td>
+<td style="text-align: left;">Define o nível de prioridade e o tipo de mensagem. Configurado pelo projetista.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RTR</strong></td>
+<td style="text-align: left;"><em>Remote Transmission Request</em></td>
+<td style="text-align: left;">Flag de requisição: <code>0</code> (leva dados) ou <code>1</code> (solicitação de dados).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>IDE</strong></td>
+<td style="text-align: left;"><em>Identifier Extension</em></td>
+<td style="text-align: left;">Identifica o tamanho do ID: <code>0</code> (Standard = 11 bits) ou <code>1</code> (Extended = 29 bits).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>R0</strong></td>
+<td style="text-align: left;"><em>Reserved 0</em></td>
+<td style="text-align: left;">Indica a versão: <code>0</code> (CAN Clássico) ou <code>1</code> (CAN FD / Bit FDF).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DLC</strong></td>
+<td style="text-align: left;"><em>Data Length Control</em></td>
+<td style="text-align: left;">Indica o tamanho da mensagem (quantidade de bits/bytes).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mensagem</strong></td>
+<td style="text-align: left;"><em>Payload</em></td>
+<td style="text-align: left;">Dado ou comando transmitido.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CRC</strong></td>
+<td style="text-align: left;"><em>Cyclic Redundancy Check</em></td>
+<td style="text-align: left;">Código de verificação de integridade calculado sobre ID, dados e controle.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ACK</strong></td>
+<td style="text-align: left;"><em>Acknowledge</em></td>
+<td style="text-align: left;">Flag alterada pelo destinatário confirmando o recebimento da mensagem.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>EOF</strong></td>
+<td style="text-align: left;"><em>End of Frame</em></td>
+<td style="text-align: left;">Indica o fim do frame (sempre nível <code>1</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>IFS</strong></td>
+<td style="text-align: left;"><em>Inter-Frame Space</em></td>
+<td style="text-align: left;">Espaço de 3 bits de intermissão entre frames consecutivos (sempre nível <code>1</code>).</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Tamanho total do frame:</strong> Varia entre <strong>112 bits</strong> (com ID Standard) e <strong>128 bits</strong> (com ID Extended).</li>
+<li><strong>Função do ID:</strong> Como todas as mensagens trafegam pelo mesmo barramento público, o campo ID garante que apenas os dispositivos configurados para aquele identificador processem a informação.</li>
+</ul>
+<hr />
+<h2 id="4-normas-de-barramento-e-velocidade">4. Normas de Barramento e Velocidade<a class="headerlink" href="#4-normas-de-barramento-e-velocidade" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Norma / Tipo</th>
+<th style="text-align: left;">Faixa de Velocidade</th>
+<th style="text-align: left;">Observação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>CAN High Speed</strong> (ISO 11898)</td>
+<td style="text-align: left;">125 kbps a 1 Mbps</td>
+<td style="text-align: left;"><strong>500 kbps</strong> é a velocidade padrão mais comum para sistemas vitais.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CAN Low Speed</strong> (ISO 11519-2)</td>
+<td style="text-align: left;">10 kbps a 125 kbps</td>
+<td style="text-align: left;">Voltado para aplicações de baixa velocidade.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CAN FD</strong> (Flexible Data-Rate)</td>
+<td style="text-align: left;">Até 8 Mbps</td>
+<td style="text-align: left;">Evolução do protocolo para maiores volumes de dados.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-divisao-de-um-dispositivo-e-do-barramento">5. Divisão de um Dispositivo e do Barramento<a class="headerlink" href="#5-divisao-de-um-dispositivo-e-do-barramento" title="Permanent link">&para;</a></h2>
+<p>Um nó em uma rede CAN é composto por três blocos principais:</p>
+<ol>
+<li><strong>Interface de Aplicação:</strong> Executa as ações/funções do sistema (sensores, atuadores). Geralmente composta por um microcontrolador ou processador.</li>
+<li><strong>Módulo CAN (Controlador e Transceptor):</strong> </li>
+<li><strong>Controlador:</strong> Gerencia o protocolo, montagem e arbitragem de frames.</li>
+<li><strong>Transceptor:</strong> Chip externo (ex: <strong>TJA1050</strong>, <strong>MCP2551</strong>) que converte o sinal digital do controlador na tensão diferencial aplicada aos dois fios do barramento.</li>
+<li><strong>Barramento CAN:</strong> Composto pelos fios <code>CANH</code> e <code>CANL</code> e <strong>dois resistores de terminação de 120 Ω</strong> instalados nas extremidades (que também podem estar integrados nas saídas dos módulos transceptores).</li>
+</ol>
+<h3 id="capacidade-de-enderecamento-e-nos">Capacidade de Endereçamento e Nós<a class="headerlink" href="#capacidade-de-enderecamento-e-nos" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Endereçamento por IDs:</strong> O protocolo suporta até <strong>2.048 IDs</strong> no modo Standard e até <strong>539 milhões de IDs</strong> no modo Extended.</li>
+<li><strong>Quantidade de Nós Físicos:</strong> O limite físico depende do transceptor utilizado. O TJA1050 suporta até <strong>110 nós</strong>, mas o padrão amplamente utilizado é de até <strong>64 nós</strong> por barramento.</li>
+</ul>
+<hr />
+<h2 id="6-arbitragem-e-acesso-ao-meio-csmacr">6. Arbitragem e Acesso ao Meio (CSMA/CR)<a class="headerlink" href="#6-arbitragem-e-acesso-ao-meio-csmacr" title="Permanent link">&para;</a></h2>
+<p>A comunicação no barramento CAN opera em modo <strong>Half-Duplex</strong> através do método <strong>CSMA/CR</strong> (<em>Carrier Sense Multiple Access with Collision Resolution</em>):</p>
+<h3 id="como-funciona-o-processo-de-arbitragem">Como funciona o processo de arbitragem:<a class="headerlink" href="#como-funciona-o-processo-de-arbitragem" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Vários dispositivos podem iniciar a transmissão simultaneamente.</li>
+<li>À medida que o campo <strong>ID</strong> é transmitido bit a bit, ocorre a sincronização pelos intervalos de subida e descida do sinal.</li>
+<li>Se um nó tenta enviar um bit de menor prioridade e detecta que o barramento recebeu um bit de maior prioridade (ex: tentou enviar um bit recessivo <code>1</code> e leu um dominante <code>0</code>), ele interrompe sua transmissão imediatamente e entra em fila de espera sem corromper a mensagem em andamento.</li>
+<li>Ao final da arbitragem, apenas a mensagem com o ID de maior prioridade permanece no barramento.</li>
+</ol>
+<h3 id="confirmacao-de-integridade-e-liberacao">Confirmação de Integridade e Liberação:<a class="headerlink" href="#confirmacao-de-integridade-e-liberacao" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Durante a transmissão, o nó emissor calcula o <strong>CRC</strong> unindo os bits de ID, mensagem e controle através de uma divisão por escalar.</li>
+<li>Ao receber o frame, o nó receptor executa o mesmo cálculo. Se os valores forem idênticos, confirma-se a integridade da mensagem.</li>
+<li>O receptor então altera o bit <strong>ACK</strong> para confirmar o recebimento.</li>
+<li>Após o frame, ocorre um tempo de intermissão (<strong>IFS</strong> de 3 bits) onde o barramento fica livre para a transmissão da próxima mensagem na fila.</li>
+</ol>
+<blockquote>
+<p><strong>Analogia:</strong> O barramento funciona como uma placa visível a todos. Quando a mensagem enviada chega ao destinatário correto e sua integridade é confirmada via CRC, o destinatário altera a cor da placa para verde (ACK), sinalizando a todos na rede que a mensagem foi recebida com sucesso.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "search.suggest", "navigation.path"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
