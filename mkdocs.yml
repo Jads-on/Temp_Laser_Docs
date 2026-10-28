@@ -2,6 +2,8 @@ site_name: Liga de Sistemas Embarcados — Firmware
 site_description: Documentação de firmware da liga
 # site_url: https://SEU-USUARIO.github.io/NOME-DO-REPO/
 # repo_url: https://github.com/SEU-USUARIO/NOME-DO-REPO
+#repo_name: ORG/REPO
+#edit_uri: edit/main/docs/
 
 theme:
   name: material
