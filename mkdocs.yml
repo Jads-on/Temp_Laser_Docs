@@ -35,11 +35,12 @@ theme:
     - navigation.indexes
     - search.suggest
     - navigation.path
+    - content.action.edit
+    - content.code.copy
 
 markdown_extensions:
   - admonition                    # Habilita o !!! tip
   - pymdownx.details              # Suporte a avisos retráteis/avançados
-  - pymdownx.superfences 
   - tables
   - attr_list         # Habilita blocos de código com títulos
   - pymdownx.highlight:           # Destaque de sintaxe
